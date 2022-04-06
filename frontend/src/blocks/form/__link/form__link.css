@@ -1,0 +1,9 @@
+.form__link {
+    text-decoration: none;
+    color: white;
+    transition: opacity 0.3s;
+}
+
+.form__link:hover {
+    opacity: 0.6;
+}

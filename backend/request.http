@@ -1,0 +1,61 @@
+POST http://localhost:3000/cards
+Content-Type: application/json
+
+{
+  "name": "Тестовая карточка",
+  "link": "https://w-dog.ru/wallpapers/0/62/349856802100204/zolotoj-bereg-okean-avstraliya-oteli-more-gorod.jpg"
+}
+
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Новый",
+  "about": "Админ",
+  "avatar": "https://arte1.ru/images/detailed/4/23608.jpg"
+}
+
+###
+
+GET  http://localhost:3000/404
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjRhZjc4ZjBjNDdhOGE1ZGU2NTc1YzMiLCJpYXQiOjE2NDkxNDk4MzMsImV4cCI6MTY0OTc1NDYzM30.YhyfkOGVBNugSGOWLzb0fob9PZ1nrFnTld5CCr8vpFc
+
+# {
+#   "avatar": "http://2-domains.ru"
+# }
+
+###
+
+GET http://localhost:3000/404
+
+###
+
+DELETE http://localhost:3000/cards/6242da602fbb4e5ba5ec8ae6/likes
+
+###
+
+PUT http://localhost:3000/cards/6242da602fbb4e5ba5ec8ae6/likes
+
+###
+
+PATCH http://localhost:3000/users/me
+Content-Type: application/json
+
+{
+  "name": "О",
+  "about": "А"
+}
+
+###
+
+POST http://localhost:3000/signin
+Content-Type: application/json
+
+{
+  "email": "timofey.kafanov@gmail.com",
+  "password": "12345678"
+}
+

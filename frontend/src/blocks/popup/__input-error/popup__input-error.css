@@ -1,0 +1,9 @@
+.popup__input-error {
+    position: absolute;
+    top: 40px;
+    margin: 0;
+}
+
+.popup__input-error:last-of-type {
+    top: 108px;
+}

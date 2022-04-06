@@ -1,0 +1,9 @@
+.popup__button_active {
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+    opacity: 1;
+}
+
+.popup__button_active:hover {
+    opacity: 0.8;
+}
