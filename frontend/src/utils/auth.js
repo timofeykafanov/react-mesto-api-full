@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.cartvelgram.students.nomoredomains.work';
+export const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3001';
 
 const HEADERS = {
     'Accept': 'application/json',

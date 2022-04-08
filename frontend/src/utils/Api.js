@@ -1,4 +1,4 @@
-import BASE_URL from './auth';
+// import BASE_URL from './auth.js';
 
 class Api {
     constructor({address, token}) {
@@ -141,7 +141,7 @@ class Api {
 }
 
 const api = new Api({
-    address: BASE_URL,
+    address: 'http://localhost:3001',
     token: `Bearer ${localStorage.getItem('token')}`
     // token: '62434932-64a7-4dd4-b60b-76c0e0336349'
 })
