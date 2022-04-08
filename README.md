@@ -5,3 +5,5 @@
 
 51.250.96.60 публичный IP
 домен api.cartvelgram.students.nomoredomains.work
+
+[Ссылка на проект](https://cartvelgram.students.nomoredomains.work/)
