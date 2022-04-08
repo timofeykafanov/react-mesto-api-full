@@ -30,33 +30,10 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
 
-app.use((req, res, next) => {
-  const allowedCors = [
-    'localhost:3000',
-    'http://localhost:3000',
-    'cartvelgram.students.nomoredomains.work',
-    'http://cartvelgram.students.nomoredomains.work',
-    'https://cartvelgram.students.nomoredomains.work',
-    'http://api.cartvelgram.students.nomoredomains.work',
-    'https://api.cartvelgram.students.nomoredomains.work',
-  ];
-  const { origin } = req.headers;
-  const { method } = req;
-  const requestHeaders = req.headers['access-control-request-headers'];
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header('Access-Control-Allow-Credentials', 'true');
-  }
-
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    return res.end();
-  }
-
+app.all('/*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
   next();
-  return true;
 });
 
 app.use(requestLogger);
