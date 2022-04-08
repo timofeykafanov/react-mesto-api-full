@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3001';
+export const BASE_URL = 'http://api.cartvelgram.students.nomoredomains.work';
 
 const HEADERS = {
     'Accept': 'application/json',
@@ -39,12 +39,3 @@ export const logout = () => {
     })
         .then(getJson)
 };
-
-// export const checkToken = () => {
-//     return fetch(`${BASE_URL}/users/me`, {
-//         method: 'GET',
-//         headers: HEADERS,
-//         credentials: 'include',
-//     })
-//         .then(getJson)
-// };

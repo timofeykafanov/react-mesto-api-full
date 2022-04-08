@@ -1,4 +1,4 @@
-// import BASE_URL from './auth.js';
+const BASE_URL = 'http://api.cartvelgram.students.nomoredomains.work';
 
 class Api {
     constructor({address, token}) {
@@ -141,9 +141,8 @@ class Api {
 }
 
 const api = new Api({
-    address: 'http://localhost:3001',
+    address: BASE_URL,
     token: `Bearer ${localStorage.getItem('token')}`
-    // token: '62434932-64a7-4dd4-b60b-76c0e0336349'
 })
 
 export default api;
