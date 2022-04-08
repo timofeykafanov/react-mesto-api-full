@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 const NotFoundError = require('../errors/NotFoundError');
 const DataError = require('../errors/DataError');
 const EmailError = require('../errors/EmailError');
@@ -19,7 +21,11 @@ const getUserInfo = (req, res, next) => {
     .orFail(() => {
       throw new NotFoundError('Пользователь с таким id не найден');
     })
-    .then((user) => res.status(200).send(user))
+    .then((user) => res.status(200).send({
+      data: {
+        user,
+      },
+    }))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new DataError('Неверный запрос или данные'));
@@ -67,13 +73,15 @@ const createUser = (req, res, next) => {
           password: hash,
         }))
         .then((newUser) => {
-          const obj = {};
-          obj.name = newUser.name;
-          obj.about = newUser.about;
-          obj.avatar = newUser.avatar;
-          obj.email = newUser.email;
-          obj._id = newUser._id;
-          res.status(200).send(obj);
+          res.status(200).send({
+            data: {
+              name: newUser.name,
+              about: newUser.about,
+              avatar: newUser.avatar,
+              email: newUser.email,
+              _id: newUser._id,
+            },
+          });
         });
     })
     .catch((err) => {
@@ -92,7 +100,11 @@ const updateUser = (req, res, next) => {
     .orFail(() => {
       throw new NotFoundError('Пользователь не найден');
     })
-    .then((user) => res.status(200).send(user))
+    .then((user) => res.status(200).send({
+      data: {
+        user,
+      },
+    }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new DataError('Переданы некорректные данные'));
@@ -109,7 +121,11 @@ const updateAvatar = (req, res, next) => {
     .orFail(() => {
       throw new NotFoundError('Пользователь не найден');
     })
-    .then((user) => res.status(200).send(user))
+    .then((user) => res.status(200).send({
+      data: {
+        user,
+      },
+    }))
     .catch((err) => {
       if (err.statusCode === 400) {
         next(new DataError('Переданы некорректные данные'));
@@ -122,7 +138,7 @@ const updateAvatar = (req, res, next) => {
 const login = (req, res, next) => {
   const { email, password } = req.body;
 
-  User.findOne({ email })
+  return User.findOne({ email })
     .select('+password')
     .then((user) => {
       if (!user) {
@@ -133,11 +149,24 @@ const login = (req, res, next) => {
           if (!matched) {
             throw new AuthError('Неверный логин или пароль');
           }
-          const token = jwt.sign({ _id: user._id }, 'super-strong-secret', { expiresIn: '7d' });
-          return res.status(200).send({ token });
-        });
-    })
-    .catch(next);
+          const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
+          res
+            .cookie('jwt', token, {
+              maxAge: 3600000 * 24 * 7,
+              httpOnly: true,
+            })
+            .send(user);
+        })
+        .catch(next);
+    });
+};
+
+const logout = (req, res) => {
+  res.cookie('jwt', 'jwt.token.revoked', {
+    httpOnly: true,
+    sameSite: true,
+    maxAge: -1,
+  }).send({ message: 'Сессия завершена' });
 };
 
 module.exports = {
@@ -148,4 +177,5 @@ module.exports = {
   updateUser,
   updateAvatar,
   login,
+  logout,
 };

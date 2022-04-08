@@ -1,12 +1,19 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function Card(props) {
     const currentUser = useContext(CurrentUserContext);
 
-    const isOwn = props.card.owner._id === currentUser._id;
-    const isLiked = props.card.likes.some(i => i._id === currentUser._id);
+    const [isLiked, setIsLiked] = useState(false);
+    const [isOwn, setIsOwn] = useState(false)
+    const [likes, setLikes] = useState(0);
+
+    useEffect(() => {
+        setIsLiked(() => props.card.likes.some(i => i === currentUser.data.user._id));
+        setIsOwn(props.card.owner === currentUser.data.user._id);
+        setLikes(props.card.likes.length);
+    }, [currentUser, props.card]);
 
     const cardDeleteButtonClassName = (
         `element__delete ${isOwn ? 'element__delete_visible' : 'element__delete_hidden'}`
@@ -38,7 +45,7 @@ function Card(props) {
                 <h3 className="element__title">{props.card.name}</h3>
                 <div className="element__column">
                     <button className={cardLikeButtonClassName} onClick={handleLikeClick} type="button"></button>
-                    <p className="element__counter">{props.card.likes.length}</p>
+                    <p className="element__counter">{likes}</p>
                 </div>
             </div>
         </div>

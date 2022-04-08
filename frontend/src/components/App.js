@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import api from "../utils/Api.js";
 
+import api from "../utils/Api.js";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
@@ -55,117 +55,113 @@ function App() {
 
     function handleUpdateUser(inputValues) {
         api.setUserInfo(inputValues)
-        .then((res) => {
-            setCurrentUser(res);
-            closeAllPopups();
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+            .then((res) => {
+                setCurrentUser(res);
+                closeAllPopups();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     function handleUpdateAvatar(inputValue) {
         api.setUserAvatar(inputValue)
-        .then((res) => {
-            setCurrentUser(res);
-            closeAllPopups();
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+            .then((res) => {
+                setCurrentUser(res);
+                closeAllPopups();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     function handleAddPlaceSubmit(inputValues) {
         api.setCard(inputValues)
-        .then((newCard) => {
-            setCards([newCard, ...cards]);
-            closeAllPopups();
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+            .then((newCard) => {
+                setCards([newCard, ...cards]);
+                closeAllPopups();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        const isLiked = card.likes.some(i => i === currentUser.data.user._id);
 
-        api.changeLikeCardStatus(card._id, !isLiked)
-        .then((newCard) => {
-            setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        api.changeLikeCardStatus(card._id, isLiked)
+            .then((newCard) => {
+                setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     function handleCardDelete(card) {
         api.deleteCard(card)
-        .then(() => {
-            setCards(cards.filter((elem) => elem !== card));
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+            .then(() => {
+                setCards(cards.filter((elem) => elem !== card));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     function handleRegistration(email, password) {
         auth.register(email, password)
-        .then((res) => {
-            setSuccess(true)
-            setIsInfoTooltipOpen(true)
-            navigate("/sign-in");
-        })
-        .catch((err) => {
-            console.log(err)
-            setIsInfoTooltipOpen(true)
-            setSuccess(false)
-        })
-
+            .then((res) => {
+                setSuccess(true)
+                setIsInfoTooltipOpen(true)
+                navigate("/sign-in");
+            })
+            .catch((err) => {
+                console.log(err)
+                setIsInfoTooltipOpen(true)
+                setSuccess(false)
+            })
     }
 
     function handleLogin(email, password) {
         auth.login(email, password)
-        .then((data) => {
-            localStorage.setItem('token', data.token);
-            setLoggedIn(true)
-            setCurrentEmail(email)
-            navigate('/');
-        })
-        .catch(err => console.log(err))
+            .then(() => {
+                setLoggedIn(true)
+                navigate('/');
+            })
+            .catch(err => console.log(err))
     }
 
     function handleLogout() {
-        localStorage.removeItem('token');
+        auth.logout()
         navigate('/sign-in')
         setLoggedIn(false)
     }
 
     useEffect(() => {
-        if (localStorage.getItem("token")) {
-            const jwt = localStorage.getItem("token");
-            auth.checkToken(jwt)
+        api.getUserInfo()
             .then((res) => {
                 if (res.data.email) {
-                    setCurrentEmail(res.data.email);
                     navigate('/');
-                    setLoggedIn(true);
                 }
+                setCurrentUser(res);
+                setCurrentEmail(res.data.user.email);
             })
             .catch((err) => {
                 console.log(err);
             });
-        }
-    }, [navigate])
+    }, [navigate]);
 
     useEffect(() => {
         Promise.all([api.getUserInfo(), api.getInitialCards()])
-        .then(([user, cards]) => {
-            setCurrentUser(user);
-            setCards(cards);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+            .then(([user, cards]) => {
+                setLoggedIn(true);
+                setCurrentUser(user);
+                setCurrentEmail(user.data.user.email);
+                setCards(cards);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, []);
 
     return (

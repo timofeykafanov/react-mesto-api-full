@@ -47,7 +47,7 @@ const likeCard = (req, res, next) => {
   ).orFail(() => {
     throw new NotFoundError('Карточка не найдена');
   })
-    .then((like) => res.status(200).send({ data: like }))
+    .then((card) => res.status(200).send(card))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new DataError('Переданы некорректные данные'));
@@ -64,7 +64,7 @@ const dislikeCard = (req, res, next) => {
   ).orFail(() => {
     throw new NotFoundError('Карточка не найдена');
   })
-    .then((like) => res.status(200).send({ data: like }))
+    .then((card) => res.status(200).send(card))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new DataError('Переданы некорректные данные'));

@@ -14,6 +14,7 @@ class Api {
 
     getInitialCards() {
         return fetch(`${this._address}/cards`, {
+            credentials: 'include',
             headers: {
                 authorization: this._token
             }
@@ -25,6 +26,7 @@ class Api {
 
     getUserInfo() {
         return fetch(`${this._address}/users/me`, {
+            credentials: 'include',
             headers: {
                 authorization: this._token
             }
@@ -37,6 +39,7 @@ class Api {
     setUserInfo(inputValues) {
         return fetch(`${this._address}/users/me`, {
             method: 'PATCH',
+            credentials: 'include',
             headers: {
                 authorization: this._token,
                 'Content-Type': 'application/json'
@@ -54,6 +57,7 @@ class Api {
     setUserAvatar(inputValue) {
         return fetch(`${this._address}/users/me/avatar`, {
             method: 'PATCH',
+            credentials: 'include',
             headers: {
                 authorization: this._token,
                 'Content-Type': 'application/json'
@@ -70,6 +74,7 @@ class Api {
     setCard(inputValues) {
         return fetch(`${this._address}/cards`, {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 authorization: this._token,
                 'Content-Type': 'application/json'
@@ -85,7 +90,7 @@ class Api {
     }
 
     changeLikeCardStatus(id, isLiked) {
-        if (!isLiked) {
+        if (isLiked) {
             return this.deleteLike(id);
         } else {
             return this.putLike(id);
@@ -95,6 +100,7 @@ class Api {
     putLike(itemId) {
         return fetch(`${this._address}/cards/${itemId}/likes`, {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 authorization: this._token
             }
@@ -107,6 +113,7 @@ class Api {
     deleteLike(itemId) {
         return fetch(`${this._address}/cards/${itemId}/likes`, {
             method: 'DELETE',
+            credentials: 'include',
             headers: {
                 authorization: this._token
             }
@@ -119,9 +126,11 @@ class Api {
     deleteCard(item) {
         return fetch(`${this._address}/cards/${item._id}`, {
             method: 'DELETE',
+            credentials: 'include',
             headers: {
+                'Accept': 'application/json',
                 authorization: this._token
-            }
+            },
         })
         .then(res => {
             return this._getResponseData(res);
@@ -130,8 +139,9 @@ class Api {
 }
 
 const api = new Api({
-    address: 'https://mesto.nomoreparties.co/v1/cohort-32',
-    token: '62434932-64a7-4dd4-b60b-76c0e0336349'
+    address: 'http://api.cartvelgram.students.nomoredomains.work',
+    token: `Bearer ${localStorage.getItem('token')}`
+    // token: '62434932-64a7-4dd4-b60b-76c0e0336349'
 })
 
 export default api;

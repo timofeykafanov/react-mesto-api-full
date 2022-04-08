@@ -13,18 +13,18 @@ function Main(props) {
                 <div
                     className="profile__avatar"
                     onClick={props.onEditAvatar}
-                    style={{ backgroundImage: `url(${currentUser.avatar})` }}
+                    style={{ backgroundImage: `url(${currentUser.data.user.avatar})` }}
                 ></div>
                 <div className="profile__info">
                     <div className="profile__row">
-                        <p className="profile__name">{currentUser.name}</p>
+                        <p className="profile__name">{currentUser.data.user.name}</p>
                         <button
                             className="profile__edit-button"
                             onClick={props.onEditProfile}
                             type="button"
                         ></button>
                     </div>
-                    <p className="profile__about">{currentUser.about}</p>
+                    <p className="profile__about">{currentUser.data.user.about}</p>
                 </div>
             </div>
                 <button

@@ -1,6 +1,7 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'http://api.cartvelgram.students.nomoredomains.work';
 
 const HEADERS = {
+    'Accept': 'application/json',
     'Content-Type': 'application/json'
 };
 
@@ -24,18 +25,26 @@ export const login = (email, password) => {
     return fetch(`${BASE_URL}/signin`, {
         method: 'POST',
         headers: HEADERS,
+        credentials: 'include',
         body: JSON.stringify({ email, password })
     })
         .then(getJson)
 };
 
-export const checkToken = (token) => {
-    return fetch(`${BASE_URL}/users/me`, {
-        method: 'GET',
-        headers: {
-            ...HEADERS,
-            'Authorization': `Bearer ${token}`,
-        }
+export const logout = () => {
+    return fetch(`${BASE_URL}/signout`, {
+        method: 'POST',
+        headers: HEADERS,
+        credentials: 'include',
     })
         .then(getJson)
-}
+};
+
+// export const checkToken = () => {
+//     return fetch(`${BASE_URL}/users/me`, {
+//         method: 'GET',
+//         headers: HEADERS,
+//         credentials: 'include',
+//     })
+//         .then(getJson)
+// };
