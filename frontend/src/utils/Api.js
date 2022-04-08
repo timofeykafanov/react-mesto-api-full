@@ -1,3 +1,5 @@
+import BASE_URL from './auth';
+
 class Api {
     constructor({address, token}) {
         this._address = address;
@@ -139,7 +141,7 @@ class Api {
 }
 
 const api = new Api({
-    address: 'http://api.cartvelgram.students.nomoredomains.work',
+    address: BASE_URL,
     token: `Bearer ${localStorage.getItem('token')}`
     // token: '62434932-64a7-4dd4-b60b-76c0e0336349'
 })
