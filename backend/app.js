@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
-// const cors = require('cors');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -30,13 +30,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
 
-app.all('/*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin: *');
-  res.header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods: GET,HEAD,PUT,PATCH,POST,DELETE');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  next();
-});
+app.use(cors());
 
 app.use(requestLogger);
 
