@@ -1,4 +1,4 @@
-const BASE_URL = 'http://api.cartvelgram.students.nomoredomains.work';
+const BASE_URL = 'https://api.cartvelgram.students.nomoredomains.work';
 
 class Api {
     constructor({address, token}) {

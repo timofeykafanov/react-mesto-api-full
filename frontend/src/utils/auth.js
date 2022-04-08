@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.cartvelgram.students.nomoredomains.work';
+export const BASE_URL = 'https://api.cartvelgram.students.nomoredomains.work';
 
 const HEADERS = {
     'Accept': 'application/json',
