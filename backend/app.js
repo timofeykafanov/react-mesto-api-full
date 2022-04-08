@@ -21,6 +21,8 @@ const { PORT = 3001 } = process.env;
 
 const app = express();
 
+app.use(cors());
+
 app.use(cookieParser());
 
 app.listen(PORT);
@@ -29,11 +31,6 @@ app.use(express.json());
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
-
-app.use(cors({
-  origin: 'https://cartvelgram.students.nomoredomains.work/',
-  credentials: true,
-}));
 
 app.use(requestLogger);
 
