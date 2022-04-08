@@ -21,7 +21,32 @@ const { PORT = 3001 } = process.env;
 
 const app = express();
 
-app.use(cors());
+app.use((req, res, next) => {
+  const allowedCors = [
+    'localhost:3000',
+    'http://localhost:3000',
+    'cartvelgram.students.nomoredomains.work',
+    'http://cartvelgram.students.nomoredomains.work',
+    'https://cartvelgram.students.nomoredomains.work',
+  ];
+  const { origin } = req.headers;
+  const { method } = req;
+  const requestHeaders = req.headers['access-control-request-headers'];
+
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', 'true');
+  }
+
+  if (method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    return res.end();
+  }
+
+  next();
+  return true;
+});
 
 app.use(cookieParser());
 
