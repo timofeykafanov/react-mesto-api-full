@@ -16,7 +16,6 @@ class Api {
 
     getInitialCards() {
         return fetch(`${this._address}/cards`, {
-            mode: 'no-cors',
             credentials: 'include',
             headers: {
                 authorization: this._token
@@ -29,7 +28,6 @@ class Api {
 
     getUserInfo() {
         return fetch(`${this._address}/users/me`, {
-            mode: 'no-cors',
             credentials: 'include',
             headers: {
                 authorization: this._token
@@ -42,7 +40,6 @@ class Api {
 
     setUserInfo(inputValues) {
         return fetch(`${this._address}/users/me`, {
-            mode: 'no-cors',
             method: 'PATCH',
             credentials: 'include',
             headers: {
@@ -61,7 +58,6 @@ class Api {
 
     setUserAvatar(inputValue) {
         return fetch(`${this._address}/users/me/avatar`, {
-            mode: 'no-cors',
             method: 'PATCH',
             credentials: 'include',
             headers: {
@@ -79,7 +75,6 @@ class Api {
 
     setCard(inputValues) {
         return fetch(`${this._address}/cards`, {
-            mode: 'no-cors',
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -106,7 +101,6 @@ class Api {
 
     putLike(itemId) {
         return fetch(`${this._address}/cards/${itemId}/likes`, {
-            mode: 'no-cors',
             method: 'PUT',
             credentials: 'include',
             headers: {
@@ -120,7 +114,6 @@ class Api {
     
     deleteLike(itemId) {
         return fetch(`${this._address}/cards/${itemId}/likes`, {
-            mode: 'no-cors',
             method: 'DELETE',
             credentials: 'include',
             headers: {
@@ -134,7 +127,6 @@ class Api {
 
     deleteCard(item) {
         return fetch(`${this._address}/cards/${item._id}`, {
-            mode: 'no-cors',
             method: 'DELETE',
             credentials: 'include',
             headers: {

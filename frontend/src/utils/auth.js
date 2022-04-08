@@ -14,7 +14,6 @@ const getJson = (response) => {
 
 export const register = (email, password) => {
     return fetch(`${BASE_URL}/signup`, {
-        mode: 'no-cors',
         method: 'POST',
         headers: HEADERS,
         body: JSON.stringify({ email, password })
@@ -23,8 +22,7 @@ export const register = (email, password) => {
 };
 
 export const login = (email, password) => {
-    return fetch(`${BASE_URL}/signin`, { mode: 'no-cors'}, {
-        mode: 'no-cors',
+    return fetch(`${BASE_URL}/signin`, {
         method: 'POST',
         headers: HEADERS,
         credentials: 'include',
@@ -35,7 +33,6 @@ export const login = (email, password) => {
 
 export const logout = () => {
     return fetch(`${BASE_URL}/signout`, {
-        mode: 'no-cors',
         method: 'POST',
         headers: HEADERS,
         credentials: 'include',
