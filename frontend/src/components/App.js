@@ -124,8 +124,9 @@ function App() {
 
     function handleLogin(email, password) {
         auth.login(email, password)
-            .then(() => {
+            .then((user) => {
                 setLoggedIn(true)
+                setCurrentUser(user);
                 navigate('/');
             })
             .catch(err => console.log(err))
