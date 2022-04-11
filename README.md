@@ -1,9 +1,18 @@
 # react-mesto-api-full
-Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями. Бэкенд расположите в директории `backend/`, а фронтенд - в `frontend/`. 
-  
-Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
+A site with functionality similar to Instagram. 
+The user can register and log in, add/remove a card, put/remove a like, change profile data.
 
-51.250.96.60 публичный IP
-домен api.cartvelgram.students.nomoredomains.work
+## Frontend
+https://cartvelgram.students.nomoredomains.work/
 
-[Ссылка на проект](https://cartvelgram.students.nomoredomains.work/)
+## Backend
+https://api.cartvelgram.students.nomoredomains.work
+
+## Stack
+* HTML
+* CSS
+* JavaScript
+* React.js
+* Node.js
+* Express
+* MongoDB
