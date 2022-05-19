@@ -19,7 +19,15 @@ https://api.cartvelgram.students.nomoredomains.work
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the Backend directory, you can run:
+
+### `npm install`
+
+### `npm run dev`
+
+Runs the app in the development mode.\
+
+In the Frontend directory, you can run:
 
 ### `npm start`
 
