@@ -1,5 +1,5 @@
 # react-mesto-api-full
-A site with functionality similar to Instagram. 
+A website with functionality similar to Instagram. 
 The user can register and log in, add/remove a card, put/remove a like, change profile data.
 
 ## Frontend
